@@ -1,0 +1,56 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-green: #1B5E20;
+  --primary-orange: #FF6F00;
+  --light-gray: #F5F5F5;
+}
+
+body {
+  @apply bg-white text-gray-900;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.btn-primary {
+  @apply bg-[#FF6F00] hover:bg-[#E65100] text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg;
+}
+
+.category-card {
+  @apply bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer overflow-hidden;
+}
+
+.annonce-card {
+  @apply bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer;
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+}
+
+.gradient-orange {
+  background: linear-gradient(135deg, #FF6F00 0%, #F57C00 100%);
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
