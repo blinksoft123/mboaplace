@@ -1,43 +1,45 @@
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
     import { Routes, Route, Navigate } from 'react-router-dom';
     import Header from '@/components/layout/Header';
     import Footer from '@/components/layout/Footer';
-    import HomePage from '@/pages/HomePage';
-    import CategoriesPage from '@/pages/CategoriesPage';
-    import CategoryDetailPage from '@/pages/CategoryDetailPage';
-    import AnnonceDetailPage from '@/pages/AnnonceDetailPage';
-    import LoginPage from '@/pages/LoginPage';
-    import RegisterPage from '@/pages/RegisterPage';
-    import ResetPasswordPage from '@/pages/ResetPasswordPage';
-    import ProfilePage from '@/pages/ProfilePage';
-    import MyAnnoncesPage from '@/pages/MyAnnoncesPage';
-    import CommentCaMarchePage from '@/pages/CommentCaMarchePage';
-    import SecuritePage from '@/pages/SecuritePage';
-    import ContactPage from '@/pages/ContactPage';
-    import CGUPage from '@/pages/CGUPage';
-    import PremiumPage from '@/pages/PremiumPage';
-    import SearchPage from '@/pages/SearchPage';
-    import SearchResultsPage from '@/pages/SearchResultsPage';
-    import QuiSommesNousPage from '@/pages/QuiSommesNousPage';
-    import NotreMissionPage from '@/pages/NotreMissionPage';
-    import FAQPage from '@/pages/FAQPage';
-    import ConfirmationPage from '@/pages/ConfirmationPage';
-    import CheckEmailPage from '@/pages/CheckEmailPage';
-    import MessagesPage from '@/pages/MessagesPage';
-    import MyReviewsPage from '@/pages/MyReviewsPage';
-    import MyFavoritesPage from '@/pages/MyFavoritesPage';
-    import EditProfilePage from '@/pages/EditProfilePage';
-    import SettingsPage from '@/pages/SettingsPage';
-    import PublishPage from '@/pages/PublishPage';
-    import EditAnnoncePage from '@/pages/EditAnnoncePage';
-    import AdminDashboardPage from '@/pages/AdminDashboardPage';
-    import ReportsPage from '@/pages/ReportsPage';
     import { useAuth } from './contexts/SupabaseAuthContext';
     import { Loader2 } from 'lucide-react';
     import ScrollToTop from '@/components/ScrollToTop';
     import { Toaster } from '@/components/ui/toaster';
     import ErrorBoundary from '@/components/ErrorBoundary';
+
+    // Lazy load all pages for code splitting
+    const HomePage = lazy(() => import('@/pages/HomePage'));
+    const CategoriesPage = lazy(() => import('@/pages/CategoriesPage'));
+    const CategoryDetailPage = lazy(() => import('@/pages/CategoryDetailPage'));
+    const AnnonceDetailPage = lazy(() => import('@/pages/AnnonceDetailPage'));
+    const LoginPage = lazy(() => import('@/pages/LoginPage'));
+    const RegisterPage = lazy(() => import('@/pages/RegisterPage'));
+    const ResetPasswordPage = lazy(() => import('@/pages/ResetPasswordPage'));
+    const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
+    const MyAnnoncesPage = lazy(() => import('@/pages/MyAnnoncesPage'));
+    const CommentCaMarchePage = lazy(() => import('@/pages/CommentCaMarchePage'));
+    const SecuritePage = lazy(() => import('@/pages/SecuritePage'));
+    const ContactPage = lazy(() => import('@/pages/ContactPage'));
+    const CGUPage = lazy(() => import('@/pages/CGUPage'));
+    const PremiumPage = lazy(() => import('@/pages/PremiumPage'));
+    const SearchPage = lazy(() => import('@/pages/SearchPage'));
+    const SearchResultsPage = lazy(() => import('@/pages/SearchResultsPage'));
+    const QuiSommesNousPage = lazy(() => import('@/pages/QuiSommesNousPage'));
+    const NotreMissionPage = lazy(() => import('@/pages/NotreMissionPage'));
+    const FAQPage = lazy(() => import('@/pages/FAQPage'));
+    const ConfirmationPage = lazy(() => import('@/pages/ConfirmationPage'));
+    const CheckEmailPage = lazy(() => import('@/pages/CheckEmailPage'));
+    const MessagesPage = lazy(() => import('@/pages/MessagesPage'));
+    const MyReviewsPage = lazy(() => import('@/pages/MyReviewsPage'));
+    const MyFavoritesPage = lazy(() => import('@/pages/MyFavoritesPage'));
+    const EditProfilePage = lazy(() => import('@/pages/EditProfilePage'));
+    const SettingsPage = lazy(() => import('@/pages/SettingsPage'));
+    const PublishPage = lazy(() => import('@/pages/PublishPage'));
+    const EditAnnoncePage = lazy(() => import('@/pages/EditAnnoncePage'));
+    const AdminDashboardPage = lazy(() => import('@/pages/AdminDashboardPage'));
+    const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
 
     const AuthGuard = ({ children }) => {
         const { user, loading } = useAuth();
@@ -74,6 +76,11 @@ import React from 'react';
             <ScrollToTop />
             <Header />
             <main className="flex-grow pt-[70px]">
+              <Suspense fallback={
+                <div className="flex justify-center items-center h-screen">
+                  <Loader2 className="h-12 w-12 animate-spin text-[#1B5E20]" />
+                </div>
+              }>
               <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/categories" element={<CategoriesPage />} />
@@ -111,6 +118,7 @@ import React from 'react';
               <Route path="/notre-mission" element={<NotreMissionPage />} />
               <Route path="/faq" element={<FAQPage />} />
               </Routes>
+              </Suspense>
             </main>
             <Toaster />
             <Footer />

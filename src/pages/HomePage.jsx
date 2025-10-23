@@ -9,6 +9,8 @@ import { categoriesData } from '@/data/categories';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import AnnonceCard from '@/components/AnnonceCard';
 import { ANNONCE_STATUS, PAGINATION } from '@/utils/constants';
+import { useCachedSupabaseQuery } from '@/hooks/useCachedSupabaseQuery';
+import cacheManager from '@/utils/cache';
 import logger from '@/utils/logger';
 
 const HomePage = () => {
@@ -21,6 +23,16 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchAnnonces();
+  }, []);
+
+  // Invalider le cache des annonces toutes les 10 minutes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      cacheManager.invalidateByPrefix('homepage-annonces');
+      logger.debug('Homepage annonces cache invalidated');
+    }, 10 * 60 * 1000); // 10 minutes
+
+    return () => clearInterval(interval);
   }, []);
 
   const fetchAnnonces = async (isLoadMore = false) => {

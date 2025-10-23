@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FavoriteButton from './FavoriteButton';
+import OptimizedImage from './OptimizedImage';
 import { timeAgo } from '@/utils/dateHelpers';
 
 const getCategoryIcon = (category) => {
@@ -43,10 +44,12 @@ const AnnonceCard = ({ annonce, showAnimation = false }) => {
       <Link to={`/annonce/${annonce.id}`} className="block h-full flex flex-col">
         <div className="relative">
           <div className="w-full h-52 bg-gray-200">
-            <img 
+            <OptimizedImage 
               src={annonce.images_urls?.[0] || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=2070&auto=format&fit=crop'} 
               alt={annonce.title} 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover"
+              lazy={true}
+              aspectRatio={null}
             />
           </div>
           <span className="absolute top-3 left-3 bg-black bg-opacity-50 text-white text-2xl px-3 py-1 rounded-md backdrop-blur-sm">
@@ -74,10 +77,11 @@ const AnnonceCard = ({ annonce, showAnimation = false }) => {
             </p>
           </div>
           <div className="border-t mt-auto pt-3 flex items-center space-x-3">
-            <img 
+            <OptimizedImage 
               src={annonce.profiles?.avatar_url || 'https://i.pravatar.cc/30'} 
               alt={annonce.profiles?.full_name} 
-              className="w-8 h-8 rounded-full" 
+              className="w-8 h-8 rounded-full object-cover" 
+              lazy={true}
             />
             <span className="text-sm font-medium text-gray-800">
               {annonce.profiles?.full_name || "Anonyme"}

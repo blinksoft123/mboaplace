@@ -8,6 +8,7 @@
     import { categoriesData } from '@/data/categories';
     import AnnonceCard from '@/components/AnnonceCard';
     import CityAutocomplete from '@/components/CityAutocomplete';
+    import cacheManager from '@/utils/cache';
     import logger from '@/utils/logger';
     import { ANNONCE_STATUS, PAGINATION } from '@/utils/constants';
 
@@ -150,6 +151,11 @@
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [finalCategoryInfo.name, sortBy, selectedCity, minPrice, maxPrice]);
+
+      // Invalider le cache quand les filtres changent
+      useEffect(() => {
+        cacheManager.invalidateByPrefix(`category-${slug}`);
+      }, [sortBy, selectedCity, minPrice, maxPrice, slug]);
 
       const handleApplyFilters = () => {
         fetchAnnonces();

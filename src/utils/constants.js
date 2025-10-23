@@ -85,7 +85,8 @@ export const SUCCESS_MESSAGES = {
 // Pagination
 export const PAGINATION = {
   DEFAULT_PAGE_SIZE: 20,
-  HOMEPAGE_LIMIT: 8
+  HOMEPAGE_LIMIT: 12, // Augmenté de 8 à 12 pour meilleure UX
+  LOAD_MORE_INCREMENT: 12 // Nombre d'annonces à charger avec "Load More"
 };
 
 export default {
