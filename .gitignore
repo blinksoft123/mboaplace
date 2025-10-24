@@ -45,3 +45,4 @@ out
 .parcel-cache
 .eslintcache
 *.tsbuildinfo
+.vercel
